@@ -2,7 +2,6 @@ package logn
 
 import (
 	"bytes"
-	"fmt"
 	"regexp"
 	"testing"
 )
@@ -11,26 +10,21 @@ const (
 	pattern = `(\S+)\s+(\d{4}[/]\d{2}[/]\d{2}\s\d{2}:\d{2}:\d{2})\s(.*)`
 )
 
-var validLogMsg *regexp.Regexp
-var examples []logMessage
+var validLogMsg = regexp.MustCompile(pattern)
 
-type logMessage struct {
+var examples = []struct {
 	level string
 	msg   string
+}{
+	{"INFO", "info test message"},
+	{"WARN", "warning test message"},
+	{"ERROR", "error test message"},
 }
 
-func init() {
-	validLogMsg = regexp.MustCompile(pattern)
-	examples = []logMessage{}
-	for i, l := range []string{"INFO", "WARN", "ERROR"} {
-		examples = append(examples, logMessage{l, fmt.Sprintf("Test Message %d", i)})
-	}
-}
-
-func checkLogMessages(t *testing.T, expected []logMessage, result string) {
+func checkLogMessages(t *testing.T, result string) {
 	matches := validLogMsg.FindAllStringSubmatch(result, -1)
 	for i, v := range matches {
-		lm := expected[i]
+		lm := examples[i]
 		if v[1] != lm.level {
 			t.Errorf("%v != %v", v[1], lm.level)
 		}
@@ -56,7 +50,7 @@ func TestLog(t *testing.T) {
 		}
 
 	}
-	checkLogMessages(t, examples, buf.String())
+	checkLogMessages(t, buf.String())
 }
 
 func TestLogf(t *testing.T) {
@@ -75,7 +69,7 @@ func TestLogf(t *testing.T) {
 		}
 
 	}
-	checkLogMessages(t, examples, buf.String())
+	checkLogMessages(t, buf.String())
 }
 
 func TestLogln(t *testing.T) {
@@ -94,7 +88,7 @@ func TestLogln(t *testing.T) {
 		}
 
 	}
-	checkLogMessages(t, examples, buf.String())
+	checkLogMessages(t, buf.String())
 }
 
 func TestDefaultLog(t *testing.T) {
@@ -113,7 +107,7 @@ func TestDefaultLog(t *testing.T) {
 		}
 
 	}
-	checkLogMessages(t, examples, buf.String())
+	checkLogMessages(t, buf.String())
 }
 
 func TestDefaultLogf(t *testing.T) {
@@ -132,7 +126,7 @@ func TestDefaultLogf(t *testing.T) {
 		}
 
 	}
-	checkLogMessages(t, examples, buf.String())
+	checkLogMessages(t, buf.String())
 }
 
 func TestDefaultLogln(t *testing.T) {
@@ -151,5 +145,5 @@ func TestDefaultLogln(t *testing.T) {
 		}
 
 	}
-	checkLogMessages(t, examples, buf.String())
+	checkLogMessages(t, buf.String())
 }
