@@ -3,6 +3,7 @@ package logn
 import (
 	"io"
 	"log"
+	"os"
 	"runtime"
 )
 
@@ -27,6 +28,8 @@ func New(out io.Writer) *Logger {
 		p: log.New(out, "PANIC ", log.LstdFlags),
 	}
 }
+
+var std = New(os.Stderr)
 
 // Trace prints msg and then the current stack trace
 func (l *Logger) Trace(msg string) {
@@ -108,4 +111,68 @@ func (l *Logger) Panicf(fmt string, v ...interface{}) {
 // Panicln prints warning message using log.Panicln
 func (l *Logger) Panicln(v ...interface{}) {
 	l.p.Panicln(v...)
+}
+
+func Trace(msg string) {
+	std.Trace(msg)
+}
+
+func Info(v ...interface{}) {
+	std.Info(v...)
+}
+
+func Infof(fmt string, v ...interface{}) {
+	std.Infof(fmt, v...)
+}
+
+func Infoln(v ...interface{}) {
+	std.Infoln(v...)
+}
+
+func Warning(v ...interface{}) {
+	std.Warning(v...)
+}
+
+func Warningf(fmt string, v ...interface{}) {
+	std.Warningf(fmt, v...)
+}
+
+func Warningln(v ...interface{}) {
+	std.Warningln(v...)
+}
+
+func Error(v ...interface{}) {
+	std.Error(v...)
+}
+
+func Errorf(fmt string, v ...interface{}) {
+	std.Errorf(fmt, v...)
+}
+
+func Errorln(v ...interface{}) {
+	std.Errorln(v...)
+}
+
+func Fatal(v ...interface{}) {
+	std.Fatal(v...)
+}
+
+func Fatalf(fmt string, v ...interface{}) {
+	std.Fatalf(fmt, v...)
+}
+
+func Fatalln(v ...interface{}) {
+	std.Fatalln(v...)
+}
+
+func Panic(v ...interface{}) {
+	std.Panic(v...)
+}
+
+func Panicf(fmt string, v ...interface{}) {
+	std.Panicf(fmt, v...)
+}
+
+func Panicln(v ...interface{}) {
+	std.Panicln(v...)
 }
