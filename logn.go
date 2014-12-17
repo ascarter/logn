@@ -7,6 +7,8 @@ import (
 	"runtime"
 )
 
+// Logger represents active logging object which iteself contains standard
+// library logger objects for each log level.
 type Logger struct {
 	t *log.Logger
 	i *log.Logger
@@ -113,66 +115,82 @@ func (l *Logger) Panicln(v ...interface{}) {
 	l.p.Panicln(v...)
 }
 
+// Trace prints msg and then the current stack trace using default logger
 func Trace(msg string) {
 	std.Trace(msg)
 }
 
+// Info prints informational message using default logger
 func Info(v ...interface{}) {
 	std.Info(v...)
 }
 
+// Infof prints informational message as in fmt.Printf using default logger
 func Infof(fmt string, v ...interface{}) {
 	std.Infof(fmt, v...)
 }
 
+// Infoln prints informational message as in fmt.Println using default logger
 func Infoln(v ...interface{}) {
 	std.Infoln(v...)
 }
 
+// Warning prints warning message using default logger
 func Warning(v ...interface{}) {
 	std.Warning(v...)
 }
 
+// Warningf prints warning message as in fmt.Printf using default logger
 func Warningf(fmt string, v ...interface{}) {
 	std.Warningf(fmt, v...)
 }
 
+// Warningln prints warning message as in fmt.Println using default logger
 func Warningln(v ...interface{}) {
 	std.Warningln(v...)
 }
 
+// Error prints error message using default logger
 func Error(v ...interface{}) {
 	std.Error(v...)
 }
 
+// Errorf prints error message as in fmt.Printf using default logger
 func Errorf(fmt string, v ...interface{}) {
 	std.Errorf(fmt, v...)
 }
 
+// Errorln prints error message as in fmt.Println using default logger
 func Errorln(v ...interface{}) {
 	std.Errorln(v...)
 }
 
+// Fatal prints warning message using log.Fatal using default logger
 func Fatal(v ...interface{}) {
 	std.Fatal(v...)
 }
 
+// Fatalf prints warning message using log.Fatalf using default logger
 func Fatalf(fmt string, v ...interface{}) {
 	std.Fatalf(fmt, v...)
 }
 
+// Fatalln prints warning message using log.Fatalln using default logger
 func Fatalln(v ...interface{}) {
 	std.Fatalln(v...)
 }
 
+// Panic prints warning message using log.Panic using default logger
 func Panic(v ...interface{}) {
 	std.Panic(v...)
 }
 
+// Panicf prints warning message using log.Panicf using default logger
 func Panicf(fmt string, v ...interface{}) {
 	std.Panicf(fmt, v...)
 }
 
+// Panicln prints warning message using log.Panicln using default logger
 func Panicln(v ...interface{}) {
 	std.Panicln(v...)
 }
